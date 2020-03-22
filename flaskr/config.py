@@ -1,0 +1,2 @@
+SQLALCHEMY_DATABASE_URI = 'sqlite:///flaskr.db'
+SECRET_KEY = '0>v\xfeI\xe6\xef\x98\x82\xf4M\xbfK\xa7\x02a<\xe12\xcc\xfb\x93\x15%'

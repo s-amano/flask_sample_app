@@ -11,6 +11,8 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 from flaskr.auth import login_required
+from flask_paginate import Pagination, get_page_parameter
+
 
 
 bp = Blueprint('book', __name__, url_prefix='/book')
@@ -27,10 +29,15 @@ def index_book():
 
     books = Book.query.filter(Book.user_id == user_id).all()
 
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    res = books[(page - 1) * 5: page * 5]
+    pagination = Pagination(page=page, total=len(books), per_page=10, css_framework='bootstrap4')
+
     # 書籍一覧画面へ遷移
     return render_template('book/index_book.html',
-                           books=books,
+                           books=res,
                            title='ログイン',
+                           pagination=pagination,
                            year=datetime.now().year)
 
 
